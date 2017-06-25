@@ -1,0 +1,15 @@
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                      http://xmlns.jcp.org/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0"
+         metadata-complete="true">
+    <servlet>
+        <servlet-name>GetStudent</servlet-name>
+        <servlet-class>com.feagle.learn.jdbc.GetStudent</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>GetStudent</servlet-name>
+        <url-pattern>/GetStudent</url-pattern>
+    </servlet-mapping>
+</web-app>
