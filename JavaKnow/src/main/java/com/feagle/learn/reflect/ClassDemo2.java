@@ -7,7 +7,7 @@ public class ClassDemo2{
         Class c1 = int.class;//int的类类型
         Class c2 = String.class;//String的类类型
         System.out.println(c1.getName());
-        System.out.println();
+        System.out.println(c2.getName());
     }
 
     @Test

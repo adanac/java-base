@@ -1,5 +1,8 @@
 package com.feagle.learn.thread;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
@@ -13,8 +16,9 @@ import java.util.Scanner;
  * 演示和实际业务逻辑相关(比如读写操作)的线程不能设置成守护线程
  */
 class Daemon implements Runnable {
+    private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    public synchronized  void run() {
+    public synchronized void run() {
         System.out.println("进入守护线程:" + Thread.currentThread().getName());
         try {
             writeToFile();
@@ -29,10 +33,20 @@ class Daemon implements Runnable {
         OutputStream os = new FileOutputStream(filename, true);
         int count = 0;
         String content = "word";
-        while (count < 999) {
-            os.write(("\r\n" + content + count).getBytes());
-            System.out.println("守护线程:" + Thread.currentThread().getName() + "向文件写入了" + content + count++);
-            Thread.sleep(1000);
+        try {
+            while (count < 999) {
+
+                os.write(("\r\n" + content + count).getBytes());
+                System.out.println("守护线程:" + Thread.currentThread().getName() + "向文件写入了" + content + count++);
+                Thread.sleep(1000);
+            }
+
+        } catch (Exception e) {
+            logger.error(e.getMessage(), e);
+        } finally {
+            if (os != null) {
+                os.close();
+            }
         }
     }
 }

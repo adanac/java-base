@@ -1,5 +1,6 @@
 package com.feagle.learn;
 
+import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -7,6 +8,11 @@ import org.junit.Test;
  * Created by Feagle on 2017/6/12.
  */
 public class MathTest {
+
+    @Test
+    public void testFloat() {
+        Assert.assertTrue(3 * 0.1 == 0.3);// false
+    }
 
     @Test
     public void test0() {

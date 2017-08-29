@@ -5,16 +5,16 @@ package com.feagle.learn.thread.implway;
  * Created by Feagle on 2017/6/7.
  */
 public class Mythread2 implements Runnable {
-    public String ThreadName;
+    public String threadName;
 
     public Mythread2(String tName) {
-        ThreadName = tName;
+        threadName = tName;
     }
 
 
     public void run() {
         for (int i = 0; i < 10000; i++) {
-            System.out.println(ThreadName + "->" + i);
+            System.out.println(threadName + "->" + i);
         }
     }
 

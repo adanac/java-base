@@ -12,7 +12,7 @@ import java.util.List;
  */
 public final class ThreadPool {
     // 线程池中默认线程的个数为5
-    private static int worker_num = 5;
+    private static  int worker_num = 5;
     // 工作线程
     private WorkThread[] workThrads;
     // 已处理的任务

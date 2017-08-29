@@ -1,6 +1,7 @@
 package com.feagle.learn.util;
 
 import org.springframework.core.LocalVariableTableParameterNameDiscoverer;
+import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -27,31 +28,37 @@ public class GetParamUtil {
         Class<?> aClass = null;
         try {
             aClass = Class.forName(className);
+            if (null == aClass) {
+                return null;
+            }
+            Method[] methods = aClass.getMethods();
+            if (methods != null && methods.length > 0) {
+
+                StringBuilder sb = new StringBuilder();
+                for (Method method : methods) {
+                    sb.append("方法：" + method.getName() + " ");
+                    String[] parameterNames = getParameterNames(method);
+                    if (parameterNames == null || parameterNames.length < 1) {
+                        sb.append("无参");
+                    } else {
+                        sb.append("[");
+                        List<String> paramList = new ArrayList<>();
+                        for (int i = 0; i < parameterNames.length; i++) {
+                            sb.append(parameterNames[i]);
+                            sb.append(",");
+                            paramList.add(parameterNames[i]);
+                        }
+                        sb.deleteCharAt(sb.length() - 1);
+                        sb.append("]");
+                        paramMap.put(method.getName(), paramList);
+                    }
+                    sb.append("\n");
+                }
+                System.out.println(sb.toString());
+            }
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
-        Method[] methods = aClass.getMethods();
-        StringBuilder sb = new StringBuilder();
-        for (Method method : methods) {
-            sb.append("方法：" + method.getName() + " ");
-            String[] parameterNames = getParameterNames(method);
-            if (parameterNames == null || parameterNames.length < 1) {
-                sb.append("无参");
-            } else {
-                sb.append("[");
-                List<String> paramList = new ArrayList<>();
-                for (int i = 0; i < parameterNames.length; i++) {
-                    sb.append(parameterNames[i]);
-                    sb.append(",");
-                    paramList.add(parameterNames[i]);
-                }
-                sb.deleteCharAt(sb.length() - 1);
-                sb.append("]");
-                paramMap.put(method.getName(), paramList);
-            }
-            sb.append("\n");
-        }
-        System.out.println(sb.toString());
         return paramMap;
     }
 
